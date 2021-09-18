@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infraestructura.Repositorios
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class 
+    public class BaseRepository<T> : IBaseRepository where T : class 
     {
         internal EvertecContext context;
         internal DbSet<T> dbSet;
@@ -20,7 +20,7 @@ namespace Infraestructura.Repositorios
             this.dbSet = context.Set<T>();
         }
 
-        public virtual IEnumerable<T> Get(
+        public virtual IEnumerable<T> Get<T>(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "")

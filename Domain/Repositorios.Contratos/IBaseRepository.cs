@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositorios.Contratos
 {
-    public interface IBaseRepository<T> where T : class
+    public interface IBaseRepository
     {
-        IEnumerable<T> Get(
+        IEnumerable<T> Get<T>(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            string includeProperties = "");
-        T GetByID(object id);
-        void Insert(T entity);
+            string includeProperties = "") where T : class;
+        T GetByID<T>(object id) where T : class;
+        void Insert<T>(T entity) where T : class;
         void Delete(object id);
-        void Update(T entityToUpdate);
+        void Update<T>(T entityToUpdate) where T : class;
     }
 }

@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain.Entidades\Domain.Entidades.csproj" />
+    <Compile Remove="Repositorios.Contratos\IBaseRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain.Servicios\" />
+    <ProjectReference Include="..\Domain.Entidades\Domain.Entidades.csproj" />
   </ItemGroup>
 
 </Project>

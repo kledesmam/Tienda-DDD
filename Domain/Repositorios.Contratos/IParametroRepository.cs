@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositorios.Contratos
 {
-    public interface IParametroRepository : IBaseRepository<Parametro>
+    public interface IParametroRepository //: IBaseRepository<Parametro>
     {
         Parametro GetParametroByEtiqueta(string etiquetaParametro);
+        List<Parametro> Get();
+        Parametro GetById(int id);
+        void Create(Parametro entity);
+        void Update(Parametro entity);
+        void Delete(int id);
     }
 }
