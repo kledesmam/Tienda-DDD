@@ -1,4 +1,5 @@
 ﻿using Domain.Entidades;
+using Infraestructura.Configuracion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -52,12 +53,19 @@ namespace Infraestructura
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Orden>().Property(x => x.IdOrden).UseIdentityColumn();
-            modelBuilder.Entity<OrdenLog>().Property(x => x.IdOrdenLog).UseIdentityColumn();
-            modelBuilder.Entity<Cliente>().Property(x => x.IdCliente).UseIdentityColumn();
-            modelBuilder.Entity<Parametro>().Property(x => x.IdParametro).UseIdentityColumn();
-            modelBuilder.Entity<ParametroDetalle>().Property(x => x.IdParametroDetalle).UseIdentityColumn();
-            modelBuilder.Entity<Producto>().Property(x => x.IdProducto).UseIdentityColumn();
+            modelBuilder.Entity<Orden>().ToTable("Orden");
+            modelBuilder.Entity<OrdenLog>().ToTable("OrdenLog");
+
+            modelBuilder.Entity<Orden>()
+                .HasOne(s => s.Cliente)
+                .WithMany(s => s.Ordens)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.ApplyConfiguration(new ParametroConfiguracion());
+            modelBuilder.ApplyConfiguration(new ParametroDetalleConfiguracion());
+            modelBuilder.ApplyConfiguration(new ProductoConfiguracion());
+            modelBuilder.ApplyConfiguration(new ClienteConfiguracion());
 
             base.OnModelCreating(modelBuilder);
         }
