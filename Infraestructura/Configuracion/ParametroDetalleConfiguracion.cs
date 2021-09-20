@@ -85,7 +85,7 @@ namespace Infraestructura.Configuracion
                         IdParametroDetalle = 9,
                         IdParametro = 3,
                         Etiqueta = "PASARELA-TRANKEY",
-                        Valor = " 024h1IlD",
+                        Valor = "024h1IlD",
                         ValorExterno = string.Empty
                     },
                     new ParametroDetalle
@@ -103,14 +103,37 @@ namespace Infraestructura.Configuracion
                         Etiqueta = "PASARELA-LOCALE",
                         Valor = "en_CO",
                         ValorExterno = string.Empty
-                    }
-                    ,
+                    },
                     new ParametroDetalle
                     {
                         IdParametroDetalle = 12,
                         IdParametro = 3,
                         Etiqueta = "PASARELA-CURRENCY",
                         Valor = "COP",
+                        ValorExterno = string.Empty
+                    },
+                    new ParametroDetalle
+                    {
+                        IdParametroDetalle = 13,
+                        IdParametro = 3,
+                        Etiqueta = "PASARELA-DIAS-EXPIRA",
+                        Valor = "5",
+                        ValorExterno = string.Empty
+                    },
+                    new ParametroDetalle
+                    {
+                        IdParametroDetalle = 14,
+                        IdParametro = 3,
+                        Etiqueta = "PASARELA-AGENTE",
+                        Valor = "PlacetoPay Sandbox",
+                        ValorExterno = string.Empty
+                    },
+                    new ParametroDetalle
+                    {
+                        IdParametroDetalle = 15,
+                        IdParametro = 3,
+                        Etiqueta = "PASARELA-URL-RETORNO",
+                        Valor = "https://localhost:44342/api/orden",
                         ValorExterno = string.Empty
                     }
                 );

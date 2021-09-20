@@ -72,9 +72,11 @@ namespace Presentacion
             services.AddScoped<AplicacionService.Interface.IParametroService, AplicacionService.Implementacion.ParametroService>();
             services.AddScoped<AplicacionService.Interface.IProductoService, AplicacionService.Implementacion.ProductoService>();
             services.AddScoped<AplicacionService.Interface.IClienteService, AplicacionService.Implementacion.ClienteService>();
+            services.AddScoped<AplicacionService.Interface.IOrdenService, AplicacionService.Implementacion.OrdenService>();
 
             //Domain
             services.AddScoped<DomainService.Interface.IParametroService, DomainService.Implementacion.ParametroService>();
+            services.AddScoped<DomainService.Interface.IOrdenService, DomainService.Implementacion.OrdenService>();
 
             //Infraestructura
             services.AddScoped<DomainRepositories.IParametroRepository, Infraestructura.Repositorios.ParametroRepository>();
@@ -83,6 +85,8 @@ namespace Presentacion
             services.AddScoped<DomainRepositories.IOrdenRepository, Infraestructura.Repositorios.OrdenRepository>();
             services.AddScoped<DomainRepositories.IProductoRepository, Infraestructura.Repositorios.ProductoRepository>();
             services.AddScoped<DomainRepositories.IUnitOfWork, Infraestructura.Repositorios.UnitOfWork>();
+            services.AddScoped<DomainRepositories.IClienteRest, Infraestructura.Integracion.ClienteRest>();
+            services.AddScoped<DomainRepositories.IOrdenLogRepository, Infraestructura.Repositorios.OrdenLogRepository>();
 
             //Context
             services.AddDbContext<EvertecContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EvertecConnection")));

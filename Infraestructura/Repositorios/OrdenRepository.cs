@@ -1,5 +1,6 @@
 ﻿using Domain.Entidades;
 using Domain.Repositorios.Contratos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,22 @@ namespace Infraestructura.Repositorios
 
         public List<Orden> Get()
         {
-            return context.Ordenes.ToList();
+            return context.Ordenes
+                .Include(o => o.Cliente)
+                .ThenInclude(c => c.TipoIdentificacion)
+                .Include(o => o.Producto)
+                .Include(o => o.Estado)
+                .ToList();
         }
 
         public Orden GetById(int id)
         {
-            return context.Ordenes.Find(id);
+            return context.Ordenes
+                .Include(o => o.Cliente)
+                .ThenInclude(c => c.TipoIdentificacion)
+                .Include(o => o.Producto)
+                .Include(o => o.Estado)
+                .SingleOrDefault(x => x.IdOrden == id);                
         }
 
         public void Update(Orden entity)

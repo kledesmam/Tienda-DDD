@@ -1,5 +1,6 @@
 ﻿using Domain.Entidades;
 using Domain.Repositorios.Contratos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,17 +29,23 @@ namespace Infraestructura.Repositorios
 
         public List<Cliente> Get()
         {
-            return context.Clientes.ToList();
+            return context.Clientes
+                .Include(c => c.TipoIdentificacion)
+                .ToList();
         }
 
         public Cliente GetById(int id)
         {
-            return context.Clientes.Find(id);
+            return context.Clientes
+                .Include(c => c.TipoIdentificacion)
+                .SingleOrDefault(c => c.IdCliente == id);
         }
 
         public Cliente GetClienteByEmail(string email)
         {
-            return context.Clientes.Where(x => x.Email.ToUpper().Equals(email.ToUpper())).FirstOrDefault();
+            return context.Clientes
+                .Include(c => c.TipoIdentificacion)
+                .SingleOrDefault(x => x.Email.ToUpper().Equals(email.ToUpper()));
         }
 
         public void Update(Cliente entity)

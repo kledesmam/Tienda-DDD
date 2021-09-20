@@ -34,5 +34,23 @@ namespace Domain.Entidades
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
         public virtual List<OrdenLog> OrdenLogs { get; set; }
+
+        public OrdenDto ConvertirDto()
+        {
+            return new OrdenDto()
+            {
+                IdOrden = this.IdOrden,
+                IdCliente = this.IdCliente,
+                IdParametroDetalle = this.IdParametroDetalle,
+                IdProducto = this.IdProducto,
+                ReferenciaPago = this.ReferenciaPago,
+                RequestId = this.RequestId,
+                UrlPago = this.UrlPago,
+                Valor = this.Valor,
+                FechaCreacion = this.FechaCreacion,
+                FechaModificacion = this.FechaModificacion,
+                EstadoOrden = this.Estado != null ? this.Estado.Valor : string.Empty
+            };
+        }
     }
 }

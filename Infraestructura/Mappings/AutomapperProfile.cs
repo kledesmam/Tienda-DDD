@@ -14,6 +14,8 @@ namespace Infraestructura.Mappings
         {
             CreateMap<ParametroDetalle, ParametroDetalleDto>();
             CreateMap<ParametroDetalleDto, ParametroDetalle>();
+            CreateMap<Orden, OrdenDto>();
+            CreateMap<OrdenDto, Orden>();
         }
     }
 }
