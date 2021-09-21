@@ -23,5 +23,18 @@ namespace Domain.Entidades
         public string Valor { get; set; }
         [MaxLength(100)]
         public string ValorExterno { get; set; }
+
+        public ParametroDetalleDto ConvertirDto()
+        {
+            return new ParametroDetalleDto()
+            {
+                IdParametroDetalle = this.IdParametroDetalle,
+                Etiqueta = this.Etiqueta,
+                IdParametro = this.IdParametro,
+                Nombre = this.Parametro.Nombre,
+                Valor = this.Valor,
+                ValorExterno = this.ValorExterno
+            };
+        }
     }
 }

@@ -27,5 +27,19 @@ namespace Domain.Entidades
         [MaxLength(40)]
         public string Celular { get; set; }
         public virtual List<Orden> Ordens { get; set; }
+
+        public ClienteDto ConvertirDto()
+        {
+            return new ClienteDto()
+            {
+                IdCliente = this.IdCliente,
+                IdTipoIdentificacion = this.TipoIdentificacion.IdParametroDetalle,
+                Apellido = this.Apellido,
+                Nombre = this.Nombre,
+                NumeroIdentificacion = this.NumeroIdentificacion,
+                Email = this.Email,
+                Celular = this.Celular
+            };
+        }
     }
 }

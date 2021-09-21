@@ -49,7 +49,14 @@ namespace Domain.Entidades
                 Valor = this.Valor,
                 FechaCreacion = this.FechaCreacion,
                 FechaModificacion = this.FechaModificacion,
-                EstadoOrden = this.Estado != null ? this.Estado.Valor : string.Empty
+                EstadoOrden = this.Estado != null ? this.Estado.Valor : string.Empty,
+                ApellidoCliente = this.Cliente.Apellido,
+                NombreCliente = this.Cliente.Nombre,
+                EmailCliente = this.Cliente.Email,
+                IdentificacionCliente = this.Cliente.NumeroIdentificacion.ToString(),
+                TipoIdentificacionCliente = this.Cliente.TipoIdentificacion.Valor,
+                CodigoProducto = this.Producto.Codigo,
+                NombreProducto = this.Producto.Nombre
             };
         }
     }

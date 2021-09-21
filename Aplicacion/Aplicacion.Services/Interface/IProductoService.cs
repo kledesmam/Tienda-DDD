@@ -9,6 +9,6 @@ namespace Aplicacion.Aplicacion.Services.Interface
 {
     public interface IProductoService
     {
-        List<Producto> GetProductos();
+        List<ProductoDto> GetProductos();
     }
 }

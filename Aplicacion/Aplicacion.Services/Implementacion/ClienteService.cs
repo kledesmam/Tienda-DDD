@@ -22,9 +22,11 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
             clienteRepository.Create(cliente);
         }
 
-        public Cliente GetClienteByEmail(string email)
-        {
-            return clienteRepository.GetClienteByEmail(email);
+        public ClienteDto GetClienteByEmail(string email)
+        {            
+            var cliente = clienteRepository.GetClienteByEmail(email);
+            
+            return cliente != null ? cliente.ConvertirDto() : null;
         }
     }
 }

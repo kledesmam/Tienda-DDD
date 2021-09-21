@@ -48,6 +48,13 @@ namespace Presentacion
 
             app.UseRouting();
 
+            app.UseCors(x => x
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(origin => true)
+            .AllowCredentials()
+            );
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -59,11 +66,12 @@ namespace Presentacion
         private void RegisterServices(IServiceCollection services /*, IConfigurationRoot configuration*/)
         {
             //Proporciona los Cors para aceptar las peticiones de un origen diferente a la URL que expone el API
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowSpecificOrigin",
+            //        builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+            //});
+
 
             //Entrada unica para la configuración
             //services.AddSingleton(configuration);

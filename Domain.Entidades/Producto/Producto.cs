@@ -21,5 +21,16 @@ namespace Domain.Entidades
         public double ValorUnitario { get; set; }
 
         public virtual List<Orden> Ordens { get; set; }
+
+        public ProductoDto ConvertirDto()
+        {
+            return new ProductoDto()
+            {
+                IdProducto = this.IdProducto,
+                Codigo = this.Codigo,
+                Nombre = this.Nombre,
+                ValorUnitario = this.ValorUnitario
+            };
+        }
     }
 }

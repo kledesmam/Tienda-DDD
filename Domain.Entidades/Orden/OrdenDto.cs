@@ -19,6 +19,13 @@ namespace Domain.Entidades
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
         public string EstadoOrden { get; set; }
-                
+        public string NombreCliente { get; set; }
+        public string ApellidoCliente { get; set; }
+        public string IdentificacionCliente { get; set; }
+        public string TipoIdentificacionCliente { get; set; }
+        public string EmailCliente { get; set; }
+        public string CodigoProducto { get; set; }
+        public string NombreProducto { get; set; }
+
     }
 }

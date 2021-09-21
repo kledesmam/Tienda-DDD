@@ -26,19 +26,37 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
             this.parametroDetalleRepository = parametroDetalleRepository;
         }
 
-        public List<ParametroDetalle> ObtenerEstadosOrden()
+        public List<ParametroDetalleDto> ObtenerEstadosOrden()
         {
-            return parametroService.ObtenerEstadosOrden();
+            List<ParametroDetalleDto> parametroDetalleDtos = new List<ParametroDetalleDto>();
+            var lista = parametroService.ObtenerEstadosOrden();
+            foreach (var item in lista)
+            {
+                parametroDetalleDtos.Add(item.ConvertirDto());
+            }
+            return parametroDetalleDtos;
         }
 
-        public List<ParametroDetalle> ObtenerParametrosPasarelaPagos()
+        public List<ParametroDetalleDto> ObtenerParametrosPasarelaPagos()
         {
-            return parametroService.ObtenerParametrosPasarelaPagos();
+            List<ParametroDetalleDto> parametroDetalleDtos = new List<ParametroDetalleDto>();
+            var lista = parametroService.ObtenerParametrosPasarelaPagos();
+            foreach (var item in lista)
+            {
+                parametroDetalleDtos.Add(item.ConvertirDto());
+            }
+            return parametroDetalleDtos;
         }
 
-        public List<ParametroDetalle> ObtenerTiposDocumentos()
+        public List<ParametroDetalleDto> ObtenerTiposDocumentos()
         {
-            return parametroService.ObtenerTiposDocumentos();
+            List<ParametroDetalleDto> parametroDetalleDtos = new List<ParametroDetalleDto>();
+            var lista = parametroService.ObtenerTiposDocumentos();
+            foreach (var item in lista)
+            {
+                parametroDetalleDtos.Add(item.ConvertirDto());
+            }
+            return parametroDetalleDtos;
         }
     }
 }

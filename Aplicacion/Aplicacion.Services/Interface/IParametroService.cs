@@ -9,8 +9,8 @@ namespace Aplicacion.Aplicacion.Services.Interface
 {
     public interface IParametroService
     {
-        List<ParametroDetalle> ObtenerTiposDocumentos();
-        List<ParametroDetalle> ObtenerEstadosOrden();
-        List<ParametroDetalle> ObtenerParametrosPasarelaPagos();
+        List<ParametroDetalleDto> ObtenerTiposDocumentos();
+        List<ParametroDetalleDto> ObtenerEstadosOrden();
+        List<ParametroDetalleDto> ObtenerParametrosPasarelaPagos();
     }
 }

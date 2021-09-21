@@ -17,9 +17,17 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
         {
             this.productoRepository = productoRepository;
         }
-        public List<Producto> GetProductos()
+        public List<ProductoDto> GetProductos()
         {
-            return productoRepository.Get();
+            List<ProductoDto> productoDtos = new List<ProductoDto>();
+            var productos = productoRepository.Get();
+
+            foreach (var item in productos)
+            {
+                productoDtos.Add(item.ConvertirDto());
+            }
+
+            return productoDtos;
         }
     }
 }

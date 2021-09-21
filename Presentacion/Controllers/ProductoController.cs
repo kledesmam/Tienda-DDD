@@ -21,9 +21,12 @@ namespace Presentacion.Controllers
 
         // GET api/producto
         [HttpGet]
-        public ActionResult<string> Get()
+        public ActionResult Get()
         {
-            return JsonConvert.SerializeObject(productoService.GetProductos());
+            var productos = productoService.GetProductos();
+            if (productos.Count < 1)
+                return NotFound();
+            return Ok(JsonConvert.SerializeObject(productos));
         }
     }
 }

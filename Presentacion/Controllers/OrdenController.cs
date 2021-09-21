@@ -23,13 +23,8 @@ namespace Presentacion.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var ordens = ordenService.ObtenerOrdenes();
-            List<OrdenDto> ordenDtos = new List<OrdenDto>();
-            foreach (var item in ordens)
-            {
-                ordenDtos.Add(item.ConvertirDto());
-            }
-            return Ok(JsonConvert.SerializeObject(ordenDtos));
+            var ordens = ordenService.ObtenerOrdenes();            
+            return Ok(JsonConvert.SerializeObject(ordens));
         }
 
         [HttpGet("{id}")]
@@ -38,13 +33,7 @@ namespace Presentacion.Controllers
             var ordens = ordenService.ObtenerOrdenes(id);
             if (!ordens.Any())
                 return NotFound();
-
-            List<OrdenDto> ordenDtos = new List<OrdenDto>();
-            foreach (var item in ordens)
-            {
-                ordenDtos.Add(item.ConvertirDto());
-            }
-            return Ok(JsonConvert.SerializeObject(ordenDtos.FirstOrDefault()));
+            return Ok(JsonConvert.SerializeObject(ordens.FirstOrDefault()));
         }
 
         [HttpPost]

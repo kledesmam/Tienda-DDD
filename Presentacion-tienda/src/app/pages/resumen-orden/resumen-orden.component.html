@@ -1,0 +1,94 @@
+<app-header></app-header>
+
+<div class="container">
+
+    <h3>Resumen Orden</h3>
+    <hr>
+    <br>
+
+    
+    <div class="div">
+        <button type="button" class="btn btn-primary" (click)="pagarOrden()">Pagar</button>
+        <button type="button" class="btn btn-success" (click)="refrescarEstado()">Refrescar estado</button>
+        <button type="button" class="btn btn-info" (click)="volverInicio()">Inicio</button>
+    </div>
+
+    <form [formGroup]="resumenForm">
+        <h6>Datos Orden</h6>
+            <hr>
+        <div class="form-group row">            
+            <div class="col">
+                <label for="idOrden">Orden No.</label>
+                <input type="text" class="form-control" formControlName="idOrden" readonly >
+            </div>
+            <div class="col">
+                <label for="valorOrden">Valor Orden</label>
+                <input type="text" class="form-control" formControlName="valorOrden" readonly  >
+            </div>
+            <div class="col">
+                <label for="estadoOrden">Estado Orden</label>
+                <input type="text" class="form-control" formControlName="estadoOrden" readonly  >
+            </div>
+        </div>
+        <h6>Datos Cliente</h6>
+            <hr>
+        <div class="form-group row">
+            
+            <div class="col">
+                <label for="numeroIdentificacionCliente">Identificación</label>
+                <input type="text" class="form-control" formControlName="numeroIdentificacionCliente" readonly  >
+            </div>
+            <div class="col">
+                <label for="nombreCliente">Nombre</label>
+                <input type="text" class="form-control" formControlName="nombreCliente" readonly  >
+            </div>
+            <div class="col">
+                <label for="apellidoCliente">Apellido</label>
+                <input type="text" class="form-control" formControlName="apellidoCliente" readonly  >
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-6">
+                <label for="correoCliente">Correo</label>
+                <input type="text" class="form-control" formControlName="correoCliente" readonly  >
+            </div>
+            <div class="col-6"></div>
+        </div>
+        <h6>Datos Producto</h6>
+            <hr>
+        <div class="form-group row">
+            <div class="col">
+                <label for="codigoProducto">Código Producto</label>
+                <input type="text" class="form-control" formControlName="codigoProducto" readonly  >
+            </div>
+            <div class="col">
+                <label for="nombreProducto">Producto</label>
+                <input type="text" class="form-control" formControlName="nombreProducto"  readonly >
+            </div>
+        </div>
+        <h6>Datos Pago</h6>
+            <hr>
+        <div class="form-group row">
+            <div class="col">
+                <label for="referenciaPago">Referencia Pago</label>
+                <input type="text" class="form-control" formControlName="referenciaPago"  readonly >
+            </div>
+            <div class="col">
+                <label for="requestId">Request Id</label>
+                <input type="text" class="form-control" formControlName="requestId" readonly  >
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <label for="fechaCreacion">Fecha Registro</label>
+                <input type="text" class="form-control" formControlName="fechaCreacion"  readonly >
+            </div>
+            <div class="col">
+                <label for="fechaModificacion">Fecha Ultima Modificación</label>
+                <input type="text" class="form-control" formControlName="fechaModificacion" readonly  >
+            </div>
+        </div>
+    </form>
+</div>
+
+<app-footer></app-footer>

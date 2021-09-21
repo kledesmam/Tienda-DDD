@@ -22,12 +22,12 @@ namespace Presentacion.Controllers
 
         // GET api/cliente/{mail}
         [HttpGet("{mail}")]
-        public ActionResult<string> GetByMail(string mail)
+        public ActionResult GetByMail(string mail)
         {
             var cliente = clienteService.GetClienteByEmail(mail);
             if (cliente == null)
                 return NotFound();
-            return JsonConvert.SerializeObject(cliente);
+            return Ok(JsonConvert.SerializeObject(cliente));
         }
 
         

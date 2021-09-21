@@ -12,6 +12,6 @@ namespace Aplicacion.Aplicacion.Services.Interface
         Orden CrearOrden(OrdenInput ordenInput);
         bool PagarOrden(int id);
         Orden CrearPago(int id);
-        IEnumerable<Orden> ObtenerOrdenes(int id = 0);
+        IEnumerable<OrdenDto> ObtenerOrdenes(int id = 0);
     }
 }

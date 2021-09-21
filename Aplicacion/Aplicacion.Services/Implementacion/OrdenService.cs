@@ -52,7 +52,7 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
             }
         }
 
-        public IEnumerable<Orden> ObtenerOrdenes(int id = 0)
+        public IEnumerable<OrdenDto> ObtenerOrdenes(int id = 0)
         {
             List<Orden> ordens = new List<Orden>();
             if (id > 0) 
@@ -65,7 +65,14 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
             {
                 ordens = ordenRepository.Get();
             }
-            return ordens;
+
+            List<OrdenDto> ordenDtos = new List<OrdenDto>();
+            foreach (var item in ordens)
+            {
+                ordenDtos.Add(item.ConvertirDto());
+            }
+
+            return ordenDtos;
         }
 
         public bool PagarOrden(int id)
