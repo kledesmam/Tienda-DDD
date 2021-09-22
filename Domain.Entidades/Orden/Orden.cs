@@ -56,7 +56,9 @@ namespace Domain.Entidades
                 IdentificacionCliente = this.Cliente.NumeroIdentificacion.ToString(),
                 TipoIdentificacionCliente = this.Cliente.TipoIdentificacion.Valor,
                 CodigoProducto = this.Producto.Codigo,
-                NombreProducto = this.Producto.Nombre
+                NombreProducto = this.Producto.Nombre,
+                PermitePagar = !(this.Estado.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_ESTADO_PAYED) || this.Estado.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_ESTADO_REJECTED)),
+                PermiteRegenerarPago = this.Estado.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_ESTADO_REJECTED)
             };
         }
     }

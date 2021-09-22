@@ -15,6 +15,9 @@ export class ResumenOrdenComponent implements OnInit {
 
   orden: OrdenI;
 
+  permitePagar: boolean = false;
+  permiteRegenerarPago: boolean = false;
+
   resumenForm = new FormGroup({
     idOrden: new FormControl(''),
     numeroIdentificacionCliente: new FormControl(''),
@@ -43,6 +46,9 @@ export class ResumenOrdenComponent implements OnInit {
   }
 
   cargarResumenOrden(id: number){
+    this.permitePagar = false;
+    this.permiteRegenerarPago = false;
+    
     this.ordenService.getOrdenById(id).subscribe(
       data => {        
         this.orden = data;
@@ -63,20 +69,63 @@ export class ResumenOrdenComponent implements OnInit {
           'fechaModificacion': this.orden.FechaModificacion,
           'urlPago': this.orden.UrlPago
         });
+        this.permitePagar = this.orden.PermitePagar;
+        this.permiteRegenerarPago = this.orden.PermiteRegenerarPago;
+      },
+      err => {
+        console.log('Error ', err);
+        
+        this.router.navigate(['dashboard']);
       }
     )
   }
 
   pagarOrden(){
-
+    if(this.orden != null && this.orden.UrlPago.length > 0){
+      window.open(this.orden.UrlPago, "_blank");
+    }
   }
 
   refrescarEstado(){
-    
+    if(this.orden != null && this.orden.IdOrden > 0){
+      this.permitePagar = !this.permitePagar;
+      this.permiteRegenerarPago = !this.permiteRegenerarPago;
+
+      this.ordenService.putRefrescarEstado(this.orden.IdOrden)
+      .subscribe(data => {
+        this.cargarResumenOrden(data.IdOrden);
+      },
+      err=>{
+        this.permitePagar = !this.permitePagar;
+        this.permiteRegenerarPago = !this.permiteRegenerarPago;
+      });
+    }
   }
 
   volverInicio(){
     this.router.navigate(['dashboard']);
+  }
+
+  regenerarLinkPago(){
+    if(this.orden != null && this.orden.IdOrden > 0){
+      this.permitePagar = !this.permitePagar;
+      this.permiteRegenerarPago = !this.permiteRegenerarPago;
+
+      this.ordenService.putRefrescarEstado(this.orden.IdOrden)
+      .subscribe(data => {
+        this.cargarResumenOrden(data.IdOrden);
+      },
+      err=>{
+        this.permitePagar = !this.permitePagar;
+        this.permiteRegenerarPago = !this.permiteRegenerarPago;
+      });
+    }
+  }
+
+  ordenesPorCliente(){
+    if(this.orden != null && this.orden.IdOrden > 0){
+      this.router.navigate(['listado-orden-cliente/', this.orden.IdCliente]);
+    }
   }
 
 }

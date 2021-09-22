@@ -1,1 +1,23 @@
-<p>producto works!</p>
+<br>
+<div class="container">
+    <form [formGroup]='productoForm'>
+        <div class="form-group row">
+            <div class="col-6">
+                <label for="productoId">Producto</label>
+                <select class="form-control"  formControlName="productoId"                         
+                        [(ngModel)]="selectedProduct"
+                        (change)="onProductSelected()">
+                    <option [ngValue]="null" disabled>Seleccione</option>
+                    <option *ngFor="let itemProd of listaProductos" [ngValue]="itemProd">
+                     {{ itemProd.Codigo }} {{ itemProd.Nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-6">
+                <label for="valorUnitario">Valor</label>
+                <input type="number" class="form-control" formControlName="valorUnitario" readonly
+                [value]="selectedProduct?.ValorUnitario" >
+            </div>            
+        </div>
+    </form>
+</div>

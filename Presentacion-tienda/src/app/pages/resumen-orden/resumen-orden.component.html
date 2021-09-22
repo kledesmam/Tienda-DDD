@@ -3,17 +3,20 @@
 <div class="container">
 
     <h3>Resumen Orden</h3>
-    <hr>
-    <br>
-
-    
-    <div class="div">
-        <button type="button" class="btn btn-primary" (click)="pagarOrden()">Pagar</button>
-        <button type="button" class="btn btn-success" (click)="refrescarEstado()">Refrescar estado</button>
+    <hr>   
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" (click)="pagarOrden()" 
+                [disabled]="!permitePagar">Pagar</button>
+        <button type="button" class="btn btn-primary" (click)="refrescarEstado()" 
+                >Refrescar estado</button>
+        <button type="button" class="btn btn-primary" (click)="regenerarLinkPago()" 
+        [disabled]="!permiteRegenerarPago">Regenerar Link pagos</button>
+        <button type="button" class="btn btn-primary" (click)="ordenesPorCliente()">Ordenes Cliente</button>
         <button type="button" class="btn btn-info" (click)="volverInicio()">Inicio</button>
     </div>
-
+    
     <form [formGroup]="resumenForm">
+        <br>
         <h6>Datos Orden</h6>
             <hr>
         <div class="form-group row">            

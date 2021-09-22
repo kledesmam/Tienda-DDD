@@ -9,9 +9,11 @@ namespace Aplicacion.Aplicacion.Services.Interface
 {
     public interface IOrdenService
     {
-        Orden CrearOrden(OrdenInput ordenInput);
-        bool PagarOrden(int id);
-        Orden CrearPago(int id);
+        OrdenDto CrearOrden(OrdenInput ordenInput);        
+        OrdenDto RegenerarPagoPasarela(int id);
         IEnumerable<OrdenDto> ObtenerOrdenes(int id = 0);
+        OrdenDto RefrescarEstadoPago(int id);
+
+        IEnumerable<OrdenDto> ObtenerOrdenesPorIdCliente(int idCliente);
     }
 }

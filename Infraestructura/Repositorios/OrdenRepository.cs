@@ -57,5 +57,16 @@ namespace Infraestructura.Repositorios
             context.Ordenes.Update(_entity);
             context.SaveChanges();
         }
+
+        public List<Orden> GetByIdCliente(int idCliente)
+        {
+            return context.Ordenes
+                .Include(o => o.Cliente)
+                .ThenInclude(c => c.TipoIdentificacion)
+                .Include(o => o.Producto)
+                .Include(o => o.Estado)
+                .Where(x=> x.IdCliente == idCliente)
+                .ToList();
+        }
     }
 }

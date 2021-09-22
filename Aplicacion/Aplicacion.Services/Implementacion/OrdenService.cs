@@ -23,7 +23,7 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
             this.unitOfWork = unitOfWork;
         }
 
-        public Orden CrearOrden(OrdenInput ordenInput)
+        public OrdenDto CrearOrden(OrdenInput ordenInput)
         {
             try
             {
@@ -38,11 +38,11 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
             
         }
 
-        public Orden CrearPago(int id)
+        public OrdenDto RegenerarPagoPasarela(int id)
         {
             try
             {
-                var orden = ordenService.CrearPago(id);
+                var orden = ordenService.RegenerarPagoPasarela(id);
                 unitOfWork.Save();
                 return orden;
             }
@@ -75,9 +75,32 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
             return ordenDtos;
         }
 
-        public bool PagarOrden(int id)
+        public OrdenDto RefrescarEstadoPago(int id)
         {
-            return ordenService.PagarOrden(id);
+            try
+            {
+                var orden = ordenService.RefrescarEstadoPago(id);
+                unitOfWork.Save();
+                return orden;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IEnumerable<OrdenDto> ObtenerOrdenesPorIdCliente(int idCliente)
+        {
+            List<Orden> ordens = new List<Orden>();
+            List<OrdenDto> ordenDtos = new List<OrdenDto>();
+
+            ordens = ordenRepository.GetByIdCliente(idCliente);            
+            foreach (var item in ordens)
+            {
+                ordenDtos.Add(item.ConvertirDto());
+            }
+
+            return ordenDtos;
         }
     }
 }

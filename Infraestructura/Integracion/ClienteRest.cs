@@ -49,14 +49,18 @@ namespace Infraestructura.Integracion
         public RedirectInformation ConsultarTransaccionPasarela(int requestId, List<ParametroDetalle> parametrosPasarela)
         {
             RedirectInformation redirectInformation = null;
+            InformationRequest informationRequest = new InformationRequest();
             string login = parametrosPasarela.Find(x => x.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_PASARELA_LOGIN)).Valor;
             string tranKey = parametrosPasarela.Find(x => x.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_PASARELA_TRANKEY)).Valor;
             string baseUrl = parametrosPasarela.Find(x => x.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_PASARELA_URL_BASE)).Valor;
             _httpClient.BaseAddress = new Uri(baseUrl);
 
-            Auth auth = CrearAuth(login, tranKey);
 
-            var postTask = _httpClient.PostAsJsonAsync(requestId.ToString(), auth);
+
+            informationRequest.auth = CrearAuth(login, tranKey);
+
+
+            var postTask = _httpClient.PostAsJsonAsync(requestId.ToString(), informationRequest);
             postTask.Wait();
             var result = postTask.Result;
 

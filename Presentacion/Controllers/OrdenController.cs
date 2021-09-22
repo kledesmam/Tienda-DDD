@@ -42,8 +42,9 @@ namespace Presentacion.Controllers
             try
             {
                 var orden = ordenService.CrearOrden(ordenInput);
-                OrdenDto ordenDto = orden.ConvertirDto();
-                return Ok(JsonConvert.SerializeObject(ordenDto));
+                if (orden == null)
+                    return NotFound();
+                return Ok(JsonConvert.SerializeObject(orden));
             }
             catch (Exception ex)
             {
@@ -56,14 +57,40 @@ namespace Presentacion.Controllers
         {
             try
             {
-                var orden = ordenService.CrearPago(id);
-                OrdenDto ordenDto = orden.ConvertirDto();
-                return Ok(JsonConvert.SerializeObject(ordenDto));
+                var orden = ordenService.RegenerarPagoPasarela(id);
+                if (orden == null)
+                    return NotFound();
+                return Ok(JsonConvert.SerializeObject(orden));
             }
             catch (Exception ex)
             {
                 return ValidationProblem(new ValidationProblemDetails() { Detail = ex.Message });
             }
+        }
+
+        [HttpPut("refresh-status-pay/{id}")]
+        public ActionResult RefrescarEstadoPago(int id)
+        {
+            try
+            {
+                var orden = ordenService.RefrescarEstadoPago(id);
+                if (orden == null)
+                    return NotFound();
+                return Ok(JsonConvert.SerializeObject(orden));
+            }
+            catch (Exception ex)
+            {
+                return ValidationProblem(new ValidationProblemDetails() { Detail = ex.Message });
+            }
+        }
+
+        [HttpGet("cliente/{id}")]
+        public ActionResult GetOrdenesByIdCliente(int id)
+        {
+            var ordens = ordenService.ObtenerOrdenesPorIdCliente(id);
+            if (!ordens.Any())
+                return NotFound();
+            return Ok(JsonConvert.SerializeObject(ordens));
         }
     }
 }

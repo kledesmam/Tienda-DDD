@@ -26,6 +26,7 @@ namespace Domain.Entidades
         public string EmailCliente { get; set; }
         public string CodigoProducto { get; set; }
         public string NombreProducto { get; set; }
-
+        public bool PermitePagar { get; set; }
+        public bool PermiteRegenerarPago { get; set; }
     }
 }

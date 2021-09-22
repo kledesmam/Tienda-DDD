@@ -14,5 +14,6 @@ namespace Domain.Repositorios.Contratos
         void Create(Orden entity);
         void Update(Orden entity);
         void Delete(int id);
+        List<Orden> GetByIdCliente(int idCliente);
     }
 }

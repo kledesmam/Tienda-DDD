@@ -10,6 +10,6 @@ namespace Aplicacion.Aplicacion.Services.Interface
     public interface IClienteService
     {
         ClienteDto GetClienteByEmail(string email);
-        void Create(Cliente cliente);
+        void Create(ClienteDto cliente);
     }
 }

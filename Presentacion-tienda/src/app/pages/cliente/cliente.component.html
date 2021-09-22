@@ -6,18 +6,19 @@
     <br>
    
     <form [formGroup]="clienteForm"> 
-        <input type="hidden" class="form-control" formControlName="idCliente" >       
+        <input type="hidden" class="form-control" formControlName="IdCliente" >       
+        <input type="hidden" class="form-control" formControlName="TipoIdentificacion" >
         <div class="form-group row">
             <div class="col-6">
-                <label for="correoCliente">Correo</label>
-                <input type="text" class="form-control" formControlName="correoCliente" (focusout)="buscar($event)" >
+                <label for="Email">Correo</label>
+                <input type="text" class="form-control" formControlName="Email" (focusout)="buscar($event)" >
             </div>
             <div class="col-6"></div>
         </div>
         <div class="form-group row">  
             <div class="col">
-                <label for="tipoIdentificacionCliente">Tipo Identificación</label>
-                <select class="form-control"  formControlName="tipoIdentificacionCliente">
+                <label for="IdTipoIdentificacion">Tipo Identificación</label>
+                <select class="form-control"  formControlName="IdTipoIdentificacion" [disabled]="crearIsDisable">
                     <option [ngValue]="null" disabled>Seleccione</option>
                     <option *ngFor="let tipoId of listaTipoIdentificacion" [ngValue]="tipoId.IdParametroDetalle">
                      {{ tipoId.Valor }}
@@ -25,29 +26,33 @@
                   </select> 
             </div>          
             <div class="col">
-                <label for="numeroIdentificacionCliente">Identificación</label>
-                <input type="text" class="form-control" formControlName="numeroIdentificacionCliente" >
+                <label for="NumeroIdentificacion">Identificación</label>
+                <input type="number" class="form-control" formControlName="NumeroIdentificacion" [readOnly]="crearIsDisable" >
             </div>            
         </div>
         <div class="form-group row">
             <div class="col">
-                <label for="nombreCliente">Nombre</label>
-                <input type="text" class="form-control" formControlName="nombreCliente" >
+                <label for="Nombre">Nombre</label>
+                <input type="text" class="form-control" formControlName="Nombre" [readOnly]="crearIsDisable" >
             </div>
             <div class="col">
-                <label for="apellidoCliente">Apellido</label>
-                <input type="text" class="form-control" formControlName="apellidoCliente" >
+                <label for="Apellido">Apellido</label>
+                <input type="text" class="form-control" formControlName="Apellido" [readOnly]="crearIsDisable" >
             </div>
         </div>
         <div class="form-group row">            
             <div class="col-6">
-                <label for="celularCliente">Celular</label>
-                <input type="text" class="form-control" formControlName="celularCliente" >
+                <label for="Celular">Celular</label>
+                <input type="text" class="form-control" formControlName="Celular" [readOnly]="crearIsDisable">
             </div>
         </div>        
     </form>
 
+    <br>
     <div class="div">
-        <button type="button" class="btn btn-primary" (click)="guardar()">Guardar</button>        
+        <button type="button" 
+                class="btn btn-primary" 
+                (click)="guardar()"
+                [disabled]="crearIsDisable">Guardar</button>        
     </div>
 </div>

@@ -1,5 +1,26 @@
 <app-header></app-header>
 
-<app-cliente></app-cliente>
+<div class="container">
+
+    <h3>Nueva Orden</h3>
+    <hr>
+    <br>
+    <app-cliente (clienteSelectedEvent)=setCliente($event)></app-cliente>
+    <app-producto (productoSelectedEvent)=setProducto($event)></app-producto>
+
+    <br>
+    <div class="btn-group">
+        <button type="button" 
+            class="btn btn-primary"
+            (click)="comprar()"
+            [disabled]="comprarIsDisabled"
+            >Comprar</button>
+            
+        <button type="button" 
+        class="btn btn-primary"
+        (click)="volverInicio()"
+        >Ir Inicio</button>
+    </div>
+</div>
 
 <app-footer></app-footer>

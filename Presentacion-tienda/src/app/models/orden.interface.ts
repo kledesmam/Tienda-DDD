@@ -17,4 +17,6 @@ export interface OrdenI{
     EmailCliente: string;
     CodigoProducto: string;
     NombreProducto: string;
+    PermitePagar: boolean;
+    PermiteRegenerarPago: boolean;
 }

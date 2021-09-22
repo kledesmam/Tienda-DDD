@@ -33,7 +33,7 @@ namespace Domain.Domain.Servicios.Implementacion
             this.ordenLogRepository = ordenLogRepository;
         }
 
-        public Orden CrearOrden(OrdenInput ordenInput)
+        public OrdenDto CrearOrden(OrdenInput ordenInput)
         {
             if (ordenInput == null)
                 throw new Exception("No se envio información de la Orden");
@@ -49,7 +49,7 @@ namespace Domain.Domain.Servicios.Implementacion
 
             var orden = RegistrarOrden(ordenInput, cliente, producto);
 
-            return orden;
+            return orden != null ? orden.ConvertirDto() : null;
         }
 
         private Orden RegistrarOrden(OrdenInput ordenInput, Cliente cliente, Producto producto)
@@ -85,13 +85,15 @@ namespace Domain.Domain.Servicios.Implementacion
 
             orden.RequestId = response.RequestId.ToString();
             orden.UrlPago = response.ProcessUrl;
+            orden.FechaModificacion = DateTime.Now;
 
-            RegistrarOrdenLog(orden, response, estadosOrden.Find(x => x.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_ESTADO_CREATED)).Valor);
+            RegistrarOrdenLog(orden, response.Status.Status, response.Status.Reason, response.Status.Message, 
+                estadosOrden.Find(x => x.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_ESTADO_CREATED)).Valor);
         }
 
-        private void RegistrarOrdenLog(Orden orden, RedirectResponse response, string estadoOrden)
+        private void RegistrarOrdenLog(Orden orden, string statusResponse, string reaseonResponse, string messageResponse, string estadoOrden)
         {
-            string respuestaPasarela = string.Format("{0} - {1} - {2} - {3}", estadoOrden, response.Status.Status, response.Status.Reason, response.Status.Message);
+            string respuestaPasarela = string.Format("{0} - {1} - {2} - {3}", estadoOrden, statusResponse, reaseonResponse, messageResponse);
 
             OrdenLog ordenLog = new OrdenLog()
             {
@@ -106,7 +108,7 @@ namespace Domain.Domain.Servicios.Implementacion
             ordenLogRepository.Create(ordenLog);
         }
 
-        public Orden CrearPago(int id)
+        public OrdenDto RegenerarPagoPasarela(int id)
         {
             var orden = ordenRepository.GetById(id);
             if (orden == null)
@@ -122,12 +124,35 @@ namespace Domain.Domain.Servicios.Implementacion
             CrearPagoPasarela(estadosOrden, orden);
             ordenRepository.Update(orden);
 
-            return orden;
+            return orden != null ? orden.ConvertirDto() : null;
         }
 
-        public bool PagarOrden(int id)
+        public OrdenDto RefrescarEstadoPago(int id)
         {
-            throw new NotImplementedException();
+            ParametroDetalle estadoOrden = null;
+            var orden = ordenRepository.GetById(id);
+            if (orden == null)
+                throw new Exception(string.Format("Orden [{0}] no existe", id));
+
+            var parametrosPasarela = parametroService.ObtenerParametrosPasarelaPagos();
+            var response = clienteRest.ConsultarTransaccionPasarela(int.Parse(orden.RequestId), parametrosPasarela);
+
+            var estadosOrden = parametroService.ObtenerEstadosOrden();
+
+            estadoOrden = estadosOrden.Find(x => x.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_ESTADO_CREATED));
+
+            if (response.Status.Status.Equals("REJECTED"))
+                estadoOrden = estadosOrden.Find(x => x.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_ESTADO_REJECTED));
+            if (response.Status.Status.Equals("APPROVED"))
+                estadoOrden = estadosOrden.Find(x => x.Etiqueta.ToUpper().Equals(Constantes.ETIQUETA_PARAMETRODETALLE_ESTADO_PAYED));
+
+            orden.IdParametroDetalle = estadoOrden.IdParametroDetalle;
+            orden.FechaModificacion = DateTime.Now;
+
+            RegistrarOrdenLog(orden, response.Status.Status, response.Status.Reason, response.Status.Message, estadoOrden.Valor);
+            ordenRepository.Update(orden);
+
+            return orden != null ? orden.ConvertirDto() : null;
         }
     }
 }

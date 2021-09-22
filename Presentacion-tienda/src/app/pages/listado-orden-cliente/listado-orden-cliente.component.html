@@ -1,1 +1,40 @@
-<p>listado-orden-cliente works!</p>
+<app-header></app-header>
+
+<div class="container">
+
+    <h3>Listado de Ordenes Por Cliente</h3>
+    <hr>
+    <br>
+
+    <button type="button" 
+            class="btn btn-primary"
+            (click)="volverInicio()"
+            >Ir Inicio</button>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Valor Orden</th>
+            <th scope="col">Estado Orden</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of ordenes" (click)="resumenOrden(item.IdOrden)">
+            <th scope="row">{{ item.IdOrden }}</th>
+            <td>{{ item.NombreCliente }} {{ item.ApellidoCliente }}</td>
+            <td>{{ item.EmailCliente }}</td>
+            <td>{{ item.CodigoProducto }} {{ item.NombreProducto }}</td>
+            <td>{{ item.Valor }}</td>
+            <td>{{ item.EstadoOrden }}</td>
+            <td>{{ item.FechaModificacion }}</td>
+          </tr>      
+        </tbody>
+      </table>
+</div>
+
+<app-footer></app-footer>

@@ -8,7 +8,7 @@ import { ResumenOrdenComponent } from './pages/resumen-orden/resumen-orden.compo
 const routes: Routes = [
   { path: '', redirectTo:'dashboard', pathMatch:'full'},
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'listado-orden-cliente', component: ListadoOrdenClienteComponent },
+  { path: 'listado-orden-cliente/:id', component: ListadoOrdenClienteComponent },
   { path: 'nueva', component: NuevaOrdenComponent },
   { path: 'resumen/:id', component: ResumenOrdenComponent }
 ];
