@@ -43,6 +43,12 @@ Para compilar y ejecutar proyecto es necesario instalar el visual studio 2019, s
 
 El proyecto Presentacion es donde esta el api rest que permite el consumo y exposición de los servicios de la Tienda para que sean consumidos por la aplicación Front.
 
+Para el ambiente local se debe crear los objetos de base de datos mediante las siguientes instrucciones:
+* Abril la consola de administración de paquetes (Menu -> Herramientas -> Admininistrador de paquetes nuget -> Consola de administracion de paquetes)
+* Seleccionar como proyecto predeterminado el proyecto Infraestructura
+* Ejecutar el comando add-migration <nombre de la migracion>
+* Si no se presentan errores, ejecutar el comando Update-Database para sincronizar los cambios con la base de datos.  
+
 ### Frontend
 El proyecto front se encuentra en la carpeta Presentacion-tienda. Este proyecto fue creado usando Angular.
 Lo primero que debemos hacer es tener instalado:
