@@ -9,8 +9,8 @@ namespace Domain.Domain.Servicios.Interface
 {
     public interface IOrdenService
     {
-        OrdenDto CrearOrden(OrdenInput ordenInput);        
-        OrdenDto RegenerarPagoPasarela(int id);
-        OrdenDto RefrescarEstadoPago(int id);
+        Orden CrearOrden(OrdenInput ordenInput);
+        Orden RegenerarPagoPasarela(int id);
+        Orden RefrescarEstadoPago(int id);
     }
 }

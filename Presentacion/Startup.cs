@@ -64,18 +64,7 @@ namespace Presentacion
         }
 
         private void RegisterServices(IServiceCollection services /*, IConfigurationRoot configuration*/)
-        {
-            //Proporciona los Cors para aceptar las peticiones de un origen diferente a la URL que expone el API
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("AllowSpecificOrigin",
-            //        builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
-            //});
-
-
-            //Entrada unica para la configuración
-            //services.AddSingleton(configuration);
-
+        {            
             //Aplicacion
             services.AddScoped<AplicacionService.Interface.IParametroService, AplicacionService.Implementacion.ParametroService>();
             services.AddScoped<AplicacionService.Interface.IProductoService, AplicacionService.Implementacion.ProductoService>();

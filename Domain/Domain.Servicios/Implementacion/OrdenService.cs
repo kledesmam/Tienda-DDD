@@ -33,7 +33,7 @@ namespace Domain.Domain.Servicios.Implementacion
             this.ordenLogRepository = ordenLogRepository;
         }
 
-        public OrdenDto CrearOrden(OrdenInput ordenInput)
+        public Orden CrearOrden(OrdenInput ordenInput)
         {
             if (ordenInput == null)
                 throw new Exception("No se envio información de la Orden");
@@ -49,7 +49,7 @@ namespace Domain.Domain.Servicios.Implementacion
 
             var orden = RegistrarOrden(ordenInput, cliente, producto);
 
-            return orden != null ? orden.ConvertirDto() : null;
+            return orden;
         }
 
         private Orden RegistrarOrden(OrdenInput ordenInput, Cliente cliente, Producto producto)
@@ -108,7 +108,7 @@ namespace Domain.Domain.Servicios.Implementacion
             ordenLogRepository.Create(ordenLog);
         }
 
-        public OrdenDto RegenerarPagoPasarela(int id)
+        public Orden RegenerarPagoPasarela(int id)
         {
             var orden = ordenRepository.GetById(id);
             if (orden == null)
@@ -124,10 +124,10 @@ namespace Domain.Domain.Servicios.Implementacion
             CrearPagoPasarela(estadosOrden, orden);
             ordenRepository.Update(orden);
 
-            return orden != null ? orden.ConvertirDto() : null;
+            return orden;
         }
 
-        public OrdenDto RefrescarEstadoPago(int id)
+        public Orden RefrescarEstadoPago(int id)
         {
             ParametroDetalle estadoOrden = null;
             var orden = ordenRepository.GetById(id);
@@ -152,7 +152,7 @@ namespace Domain.Domain.Servicios.Implementacion
             RegistrarOrdenLog(orden, response.Status.Status, response.Status.Reason, response.Status.Message, estadoOrden.Valor);
             ordenRepository.Update(orden);
 
-            return orden != null ? orden.ConvertirDto() : null;
+            return orden;
         }
     }
 }

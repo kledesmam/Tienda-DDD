@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositorios.Contratos
 {
-    public interface IParametroDetalleRepository //: IBaseRepository<ParametroDetalle> 
+    public interface IParametroDetalleRepository
     {
         ParametroDetalle GetParametroDetalleByEtiqueta(string etiquetaParametro, string etiquetaDetalle);
         List<ParametroDetalle> Get();

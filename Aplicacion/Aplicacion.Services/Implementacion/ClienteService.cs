@@ -20,6 +20,11 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
             this.clienteRepository = clienteRepository;
             this.unitOfWork = unitOfWork;
         }
+
+        /// <summary>
+        /// Metodo encargado de crear un cliente. Si el email ya esta registrado no permite la creación.
+        /// </summary>
+        /// <param name="cliente"></param>
         public void Create(ClienteDto cliente)
         {
             if (cliente == null)
@@ -47,6 +52,11 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
             unitOfWork.Save();
         }
 
+        /// <summary>
+        /// Método encargado de obtener un cliente por el email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public ClienteDto GetClienteByEmail(string email)
         {            
             var cliente = clienteRepository.GetClienteByEmail(email);

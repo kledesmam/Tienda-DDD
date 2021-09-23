@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositorios.Contratos
 {
-    public interface IClienteRepository //: IBaseRepository<Cliente>
+    public interface IClienteRepository
     {
         Cliente GetClienteByEmail(string email);
         List<Cliente> Get();

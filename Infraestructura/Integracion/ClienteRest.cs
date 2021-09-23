@@ -23,6 +23,13 @@ namespace Infraestructura.Integracion
             _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        /// <summary>
+        /// Método encargado de consumir el servicio expuesto por la pasarela de pagos para crear un solicitud
+        /// de pago y obtener el requestId y la url para el pago.
+        /// </summary>
+        /// <param name="orden">Orden a ser procesada</param>
+        /// <param name="parametrosPasarela">Listado con los parametros necesarios para conectar con la pasarela</param>
+        /// <returns>Objeto que contiene el estado de la petición, la url de pago y el requestId</returns>
         public RedirectResponse CrearPagoPasarela(Orden orden, List<ParametroDetalle> parametrosPasarela)
         {
             RedirectResponse redirectResponse = null;
@@ -46,6 +53,13 @@ namespace Infraestructura.Integracion
             return redirectResponse;
         }
 
+        /// <summary>
+        /// Método encargado de obtener la información de una transacción en la pasarela de pagos a tráves del
+        /// RequestId
+        /// </summary>
+        /// <param name="requestId">RequestId del cual se desea obtener la información</param>
+        /// <param name="parametrosPasarela">Listado con los parametros necesarios para conectar con la pasarela</param>
+        /// <returns></returns>
         public RedirectInformation ConsultarTransaccionPasarela(int requestId, List<ParametroDetalle> parametrosPasarela)
         {
             RedirectInformation redirectInformation = null;
@@ -73,6 +87,15 @@ namespace Infraestructura.Integracion
             return redirectInformation;
         }
 
+        #region Metodos Privados
+
+        /// <summary>
+        /// Método que se encarga de crear el objeto requerido por el servicio de la pasarela de pagos
+        /// para crear una solicitud de pago.
+        /// </summary>
+        /// <param name="orden">Orden a ser procesada</param>
+        /// <param name="parametrosPasarela">Listado con los parametros necesarios para conectar con la pasarela</param>
+        /// <returns></returns>
         private RedirectRequest CrearRedirectRequest(Orden orden, List<ParametroDetalle> parametrosPasarela)
         {
             RedirectRequest redirectRequest = new RedirectRequest();
@@ -100,6 +123,13 @@ namespace Infraestructura.Integracion
             return redirectRequest;
         }
 
+        /// <summary>
+        /// Método encargado de crear el objeto auth que contiene la auntenticación para el consumo de 
+        /// los servicios de la pasarela de pagos
+        /// </summary>
+        /// <param name="login">Login</param>
+        /// <param name="tranKey">Trankey</param>
+        /// <returns></returns>
         private Auth CrearAuth(string login, string tranKey)
         {
             Authentication authentication = new Authentication(login, tranKey);
@@ -111,7 +141,14 @@ namespace Infraestructura.Integracion
                 TranKey = authentication.getTranKey()
             };
             return auth;
-        }                
+        }
+        
+        /// <summary>
+        /// Método encargado de crear un comprador para enviarlo en la petición de crear una solicitud de pago
+        /// en la pasarela
+        /// </summary>
+        /// <param name="cliente">Cliente registrado en la orden de pago</param>
+        /// <returns></returns>
         private Buyer CrearBuyer(Cliente cliente)
         {
             int celular = 0;
@@ -128,6 +165,13 @@ namespace Infraestructura.Integracion
             };
         }
 
+        /// <summary>
+        /// Método encargado de crear el objeto de pago para enviarlo en la petición de crear una solicitud de pago
+        /// en la pasarela
+        /// </summary>
+        /// <param name="orden">Orden a ser procesada</param>
+        /// <param name="currency">Moneda</param>
+        /// <returns></returns>
         private Payment CrearPayment(Orden orden, string currency)
         {
             return new Payment()
@@ -142,8 +186,14 @@ namespace Infraestructura.Integracion
                 Reference = orden.ReferenciaPago
             };
         }
+
+        #endregion
     }
 
+    /// <summary>
+    /// Clase que permite generar el nonce y el trankey
+    /// Clase tomada del repositorio de evertec para c#
+    /// </summary>
     public class Authentication
     {
         string login;

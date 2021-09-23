@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositorios.Contratos
 {
-    public interface IProductoRepository //: IBaseRepository<Producto>
+    public interface IProductoRepository
     {
         List<Producto> Get();
         Producto GetById(int id);

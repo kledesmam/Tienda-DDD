@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositorios.Contratos
 {
-    public interface IOrdenRepository //: IBaseRepository<Orden>
+    public interface IOrdenRepository
     {
         List<Orden> Get();
         Orden GetById(int id);
