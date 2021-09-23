@@ -1,5 +1,6 @@
 ﻿using Domain.Domain.Servicios.Interface;
 using Domain.Entidades;
+using Domain.Entidades.Exceptions;
 using Domain.Entidades.ObjetosExternos;
 using Domain.Repositorios.Contratos;
 using System;
@@ -36,16 +37,16 @@ namespace Domain.Domain.Servicios.Implementacion
         public Orden CrearOrden(OrdenInput ordenInput)
         {
             if (ordenInput == null)
-                throw new Exception("No se envio información de la Orden");
+                throw new ArgumentNullException("No se envio información de la Orden");
 
             Cliente cliente = clienteRepository.GetById(ordenInput.IdCliente);
             if (cliente == null)
-                throw new Exception("Cliente no existe");
+                throw new ClienteNotFoundException("Cliente no existe");
             Producto producto = productoRepository.GetById(ordenInput.IdProducto);
             if (producto == null)
-                throw new Exception("Producto no existe");
+                throw new ProductoNotFoundException("Producto no existe");
             if (ordenInput.Valor <= 0)
-                throw new Exception("Valor debe ser mayor a cero");
+                throw new InvalidValorOrdenException("Valor debe ser mayor a cero");
 
             var orden = RegistrarOrden(ordenInput, cliente, producto);
 

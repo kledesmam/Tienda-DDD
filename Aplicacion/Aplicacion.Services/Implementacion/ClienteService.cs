@@ -1,5 +1,6 @@
 ﻿using Aplicacion.Aplicacion.Services.Interface;
 using Domain.Entidades;
+using Domain.Entidades.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,17 +29,21 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
         public void Create(ClienteDto cliente)
         {
             if (cliente == null)
-                throw new Exception("Información del cliente no se envio");
+                throw new ArgumentNullException("Información del cliente no se envio");
             if(cliente.IdTipoIdentificacion <= 0)
-                throw new Exception("Tipo de identificación no válido");
+                throw new ObjectValueInvalidException("Tipo de identificación no válido");
             if (cliente.NumeroIdentificacion <= 0)
-                throw new Exception("Número de identificación no válido");
+                throw new ObjectValueInvalidException("Número de identificación no válido");
             if (string.IsNullOrWhiteSpace(cliente.Email))
-                throw new Exception("Correo no válido");
+                throw new ObjectValueInvalidException("Correo es obligatorio");
+            if (string.IsNullOrWhiteSpace(cliente.Nombre))
+                throw new ObjectValueInvalidException("Nombre es obligatorio");
+            if (string.IsNullOrWhiteSpace(cliente.Apellido))
+                throw new ObjectValueInvalidException("Apellido es obligatorio");
 
             var _clienteDtoVal = this.GetClienteByEmail(cliente.Email);
             if (_clienteDtoVal != null)
-                throw new Exception("Ya existe un cliente registrado con el correo enviado");
+                throw new ClienteExisteException("Ya existe un cliente registrado con el correo enviado");
 
             Cliente _cliente = new Cliente();
             _cliente.Apellido = cliente.Apellido;

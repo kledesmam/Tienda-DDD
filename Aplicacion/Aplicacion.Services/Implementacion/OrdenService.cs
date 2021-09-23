@@ -36,7 +36,7 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
                 unitOfWork.Save();
                 return orden != null ? orden.ConvertirDto() : null;
             }
-            catch (Exception)
+            catch
             {
                 throw;
             }
@@ -57,7 +57,7 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
                 unitOfWork.Save();
                 return orden != null ? orden.ConvertirDto() : null;
             }
-            catch (Exception)
+            catch
             {
                 throw;
             }
@@ -105,7 +105,7 @@ namespace Aplicacion.Aplicacion.Services.Implementacion
                 unitOfWork.Save();
                 return orden != null ? orden.ConvertirDto() : null;
             }
-            catch (Exception)
+            catch
             {
                 throw;
             }

@@ -1,4 +1,5 @@
 ﻿using Domain.Entidades;
+using Domain.Entidades.Exceptions;
 using Domain.Entidades.ObjetosExternos;
 using Domain.Repositorios.Contratos;
 using System;
@@ -44,7 +45,7 @@ namespace Infraestructura.Integracion
             var result = postTask.Result;
 
             if (!result.IsSuccessStatusCode)
-                throw new Exception("Se presento una novedad al crear la solicitud de pago, orden no procesada");
+                throw new PasarelaPagoException("Se presento una novedad al crear la solicitud de pago, orden no procesada");
 
             var readTask = result.Content.ReadFromJsonAsync<RedirectResponse>();
             readTask.Wait();
@@ -79,7 +80,7 @@ namespace Infraestructura.Integracion
             var result = postTask.Result;
 
             if (!result.IsSuccessStatusCode)
-                throw new Exception("Se presento una novedad al consultar la transacción en la pasarela");
+                throw new PasarelaPagoException("Se presento una novedad al consultar la transacción en la pasarela");
 
             var readTask = result.Content.ReadFromJsonAsync<RedirectInformation>();
             readTask.Wait();

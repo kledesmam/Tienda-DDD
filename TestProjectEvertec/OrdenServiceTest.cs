@@ -1,5 +1,6 @@
 ﻿using Aplicacion.Aplicacion.Services.Interface;
 using Domain.Entidades;
+using Domain.Entidades.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -48,7 +49,7 @@ namespace TestProjectEvertec
                 Valor = 10000
             };
 
-            Assert.ThrowsException<Exception>(() => context.CrearOrden(ordenInput));
+            Assert.ThrowsException<ProductoNotFoundException>(() => context.CrearOrden(ordenInput));
         }
 
         [TestMethod]
@@ -60,7 +61,7 @@ namespace TestProjectEvertec
 
             OrdenInput ordenInput = null;
 
-            Assert.ThrowsException<Exception>(() => context.CrearOrden(ordenInput));
+            Assert.ThrowsException<ArgumentNullException>(() => context.CrearOrden(ordenInput));
         }
 
         [TestMethod]
@@ -77,7 +78,7 @@ namespace TestProjectEvertec
                 Valor = 10000
             };
 
-            Assert.ThrowsException<Exception>(() => context.CrearOrden(ordenInput));
+            Assert.ThrowsException<ClienteNotFoundException>(() => context.CrearOrden(ordenInput));
         }
 
         [TestMethod]
@@ -94,7 +95,7 @@ namespace TestProjectEvertec
                 Valor = -10000
             };
 
-            Assert.ThrowsException<Exception>(() => context.CrearOrden(ordenInput));
+            Assert.ThrowsException<InvalidValorOrdenException>(() => context.CrearOrden(ordenInput));
         }
 
         [TestMethod]
